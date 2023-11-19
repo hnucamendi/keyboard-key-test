@@ -1,8 +1,11 @@
 package generate
 
 import (
+	"encoding/json"
 	"fmt"
+	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
+	"fyne.io/fyne/v2/container"
 	"image/color"
 )
 
@@ -71,24 +74,26 @@ func (g *Generator) generateFnKeys() {
 	}
 }
 
+// Keyboards
+
+func (g *Generator) GenerateKeyboard(ks int) *fyne.Container {
+	keyboard := container.NewWithoutLayout()
+	for _, n := range g.Nums {
+		keyboard.Objects = append(keyboard.Objects, n)
+	}
+	j, _ := json.Marshal(keyboard)
+	fmt.Println(string(j))
+	return keyboard
+}
+
 func Init() *Generator {
 	g := &Generator{}
-	c := make(chan string)
-	go func() {
-		c <- "starting"
-		g.generateAlphaNamedKeys()
-		g.generateSymbolKeys()
-		g.generateAlphaKeys()
-		g.generateNumKeys()
-		g.generateFnKeys()
-	}()
 
-	done := <-c
-
-	fmt.Println(done)
-
-	//msg := <-g.channel
-	//fmt.Println(msg)
+	g.generateAlphaNamedKeys()
+	g.generateSymbolKeys()
+	g.generateAlphaKeys()
+	g.generateNumKeys()
+	g.generateFnKeys()
 
 	return g
 }
