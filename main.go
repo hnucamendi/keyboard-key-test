@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"github.com/hnucamendi/keyboard-key-test/generate"
 	"image/color"
 
 	"fyne.io/fyne/v2"
@@ -20,6 +22,10 @@ func buildKeyboard(ks int) *fyne.Container {
 }
 
 func main() {
+	g := generate.Init()
+
+	fmt.Println(g)
+
 	a := app.New()
 	w := a.NewWindow("Keyboard Tester")
 
