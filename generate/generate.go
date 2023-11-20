@@ -9,6 +9,14 @@ import (
 	"image/color"
 )
 
+type keys struct {
+}
+
+type keyboard struct {
+	height int
+	width  int
+}
+
 type Generator struct {
 	Nums       map[string]*canvas.Text
 	Alphas     map[string]*canvas.Text
@@ -75,9 +83,8 @@ func (g *Generator) generateFnKeys() {
 }
 
 // Keyboards
-
 func (g *Generator) GenerateKeyboard(ks int) *fyne.Container {
-	keyboard := container.NewWithoutLayout()
+	keyboard := container.NewWithoutLayout(g.Nums["1"], g.Nums["2"], g.Nums["3"], g.Nums["4"], g.Nums["5"], g.Nums["6"], g.Nums["7"])
 	for _, n := range g.Nums {
 		keyboard.Objects = append(keyboard.Objects, n)
 	}
